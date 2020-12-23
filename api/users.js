@@ -98,7 +98,22 @@ router.get('/current', passport.authenticate('jwt', { session: false }),(req, re
         name: req.user.name,
         email: req.user.email
     })
-
 })
+
+router.put('/update', (req, res)=> {
+    db.User.findOneAndUpdate(
+        {_id: req.body.userID},
+        {email: req.body.email, name:req.body.name}, // Changed in MongoDB 4.2
+        {
+          upsert: true
+        }
+     ).then(res =>{
+        console.log('successful');
+     })
+})
+
+// router.delete('/delete', (req, res)=> {
+//     res.json({msg: 'Destroy route'})  
+// })
 
 module.exports = router;
