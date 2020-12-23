@@ -19,6 +19,10 @@ const userSchema = new Schema({
     date: {
         type: Date,
         default: Date.now()
+    },
+    imageURL: {
+        type: String,
+        default: null
     }
 });
 
