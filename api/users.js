@@ -139,4 +139,12 @@ router.post('/newShop', (req, res)=>{
     })
 })
 
+router.get('/welcomeshops', (req, res)=> {
+    console.log('Loaded Irezumi Top Picks');
+    db.Tattoo.find()
+    .then(foundShops => {
+        res.json({foundShops})
+    })
+})
+
 module.exports = router;
