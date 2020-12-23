@@ -112,8 +112,31 @@ router.put('/update', (req, res)=> {
      })
 })
 
-// router.delete('/delete', (req, res)=> {
-//     res.json({msg: 'Destroy route'})  
-// })
+router.post('/newShop', (req, res)=>{
+    //Find user by email
+    console.log('creating shop');
+    db.Tattoo.findOne({ name: req.body.name})
+    .then(tattooShop =>{
+        //If email already exist we want to send a 400 response
+        if (tattooShop) {
+            return res.status(400).json({ msg: 'Shop Already Exist'})
+        } else {
+            //Create a new user
+            const newTattoo = new db.Tattoo({
+                name: req.body.name,
+                address: req.body.address,
+                url: req.body.url,
+                phone: req.body.phone,
+                imageURL: req.body.imageURL
+            })
+            newTattoo.save()
+            .then(createdShop => {
+                res.json(createdShop)
+            })
+        }
+    }).catch(error => {
+        console.log(`Error creating shop----${error}`);
+    })
+})
 
 module.exports = router;
