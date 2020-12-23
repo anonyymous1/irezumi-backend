@@ -23,3 +23,4 @@ db.on('error', (error)=>{
 })
 
 module.exports.User = require('./User')
+module.exports.Tattoo = require('./TattooShop')
