@@ -112,6 +112,18 @@ router.put('/update', (req, res)=> {
      })
 })
 
+router.put('/updateProfile', (req, res)=> {
+    db.User.findOneAndUpdate(
+        {_id: req.body.userID},
+        {imageURL: url}, // Changed in MongoDB 4.2
+        {
+          upsert: true
+        }
+     ).then(res =>{
+        console.log('successful');
+     })
+})
+
 router.post('/newShop', (req, res)=>{
     //Find user by email
     console.log('creating shop');
