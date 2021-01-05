@@ -29,7 +29,8 @@ router.post('/register', (req, res)=>{
             const newUser = new db.User({
                 name: req.body.name,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                imageURL: null
             });
             //Salt and has password, then save the user
             bcrypt.genSalt(10, (err, salt) => {
@@ -72,7 +73,8 @@ router.post('/login', (req, res)=> {
                     const payload = {
                         id: user.id,
                         email: user.email,
-                        name: user.name
+                        name: user.name,
+                        imageURL: user.imageURL
                     };
 
                     //Sign token
@@ -96,21 +98,34 @@ router.get('/current', passport.authenticate('jwt', { session: false }),(req, re
     res.json({
         id: req.user.id,
         name: req.user.name,
-        email: req.user.email
+        email: req.user.email,
+        imageURL: req.user.imageURL
     })
 })
 
 router.put('/update', (req, res)=> {
     db.User.findOneAndUpdate(
         {_id: req.body.userID},
-        {email: req.body.email, name:req.body.name}, // Changed in MongoDB 4.2
+        {email: req.body.email, name:req.body.name, imageURL: req.body.url}, // Changed in MongoDB 4.2
         {
           upsert: true
         }
      ).then(res =>{
-        console.log('successful');
+        console.log('successful', res);
      })
 })
+
+// router.put('/updateProfile', (req, res)=> {
+//     db.User.findOneAndUpdate(
+//         {_id: req.body.userID},
+//         {imageURL: req.body.url }, // Changed in MongoDB 4.2
+//         {
+//           upsert: true
+//         }
+//      ).then(res =>{
+//         console.log('successful', res);
+//      })
+// })
 
 router.post('/newShop', (req, res)=>{
     //Find user by email
