@@ -74,7 +74,8 @@ router.post('/login', (req, res)=> {
                         id: user.id,
                         email: user.email,
                         name: user.name,
-                        imageURL: user.imageURL
+                        imageURL: user.imageURL,
+                        favorites: user.favorites
                     };
 
                     //Sign token
@@ -99,7 +100,8 @@ router.get('/current', passport.authenticate('jwt', { session: false }),(req, re
         id: req.user.id,
         name: req.user.name,
         email: req.user.email,
-        imageURL: req.user.imageURL
+        imageURL: req.user.imageURL,
+        favorites: req.user.favorites
     })
 })
 

@@ -1,7 +1,31 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
 //User Schema
+const favoriteSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    address:{
+        type:String,
+        required: true
+    },
+    url:{
+        type:String,
+        required: true
+    },
+    phone:{
+        type:String,
+        required: true,
+    },
+    imageURL: {
+        type: String,
+        default: null
+    }
+});
+
 const userSchema = new Schema({
     name: {
         type: String, 
@@ -23,7 +47,8 @@ const userSchema = new Schema({
     imageURL: {
         type: String,
         default: null
-    }
+    },
+    favorites:[favoriteSchema]
 });
 
 module.exports = User = mongoose.model('User', userSchema)
