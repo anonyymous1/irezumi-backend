@@ -117,6 +117,38 @@ router.put('/update', (req, res)=> {
      })
 })
 
+router.post('/favorites', async (req, res) => {
+    console.log('poating to favs');
+    try {
+        const { title, content} = req.body;
+        const newfavorite = new db.Favorite({
+            title,
+            content,
+            userId: req.body.userId
+        });
+        const savefav = await newfavorite.save();
+        res.json(savefav);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.get('/all', (req, res) => {
+    console.log('Loaded favs');
+    db.Favorite.find()
+    .then(allFavs => {
+        console.log(allFavs);
+        res.json(allFavs)
+    })
+
+});
+
+router.delete('/favorites/:id', async (req, res) => {
+    const fav = await db.Favorite.findOne({userId: req.user, _id: req.params.id});
+    const deleteFave = await db.Favorite.findByIdAndDelete(req.params.id);
+    res.json(deleteFave);
+    
+})
 
 
 router.post('/newShop', (req, res)=>{
