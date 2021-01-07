@@ -13,3 +13,5 @@ For information on:
 and Full `README.md`
 
 Please go to [Irezumi](https://github.com/anonyymous1/irezumi-client).
+
+READY FOR CODE REVIEW
