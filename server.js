@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 8000;
 const users = require('./api/users');
 
 //Middleware
+
+
 app.use(cors());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
